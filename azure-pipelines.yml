@@ -13,7 +13,7 @@ trigger:
 
 variables:
 - name: SolutionBaseName
-  value: SFA.DAS.FAA.CSJProxy.Api
+  value: SFA.DAS.FAA.CSJProxy
 - name: BuildConfiguration
   value: release
 - name: BuildPlatform
@@ -51,7 +51,6 @@ stages:
   - template: azure-pipelines-templates/build/job/dacpaccs-template.yml@das-platform-building-blocks
     parameters:
       SolutionBaseName: $(SolutionBaseName)
-      DatabaseProjectPath: src/$(SolutionBaseName).Database/$(SolutionBaseName).Database.csproj
 
 - stage: Deploy_AT
   dependsOn: Build
@@ -59,7 +58,6 @@ stages:
   variables:
   - group: DevTest Management Resources
   - group: AT DevTest Shared Resources
-  - group: AT das-csjproxy-api
   jobs:
   - template: pipeline-templates/job/deploy.yml
     parameters:
@@ -75,7 +73,6 @@ stages:
   variables:
   - group: DevTest Management Resources
   - group: TEST DevTest Shared Resources
-  - group: TEST das-csjproxy-api
   jobs:
   - template: pipeline-templates/job/deploy.yml
     parameters:
@@ -91,7 +88,6 @@ stages:
   variables:
   - group: DevTest Management Resources
   - group: TEST2 DevTest Shared Resources
-  - group: TEST2 das-csjproxy-api
   jobs:
   - template: pipeline-templates/job/deploy.yml
     parameters:
@@ -107,7 +103,6 @@ stages:
   variables:
   - group: DevTest Management Resources
   - group: DEMO DevTest Shared Resources
-  - group: DEMO das-csjproxy-api
   jobs:
   - template: pipeline-templates/job/deploy.yml
     parameters:
@@ -123,7 +118,6 @@ stages:
   variables:
   - group: PREPROD Management Resources
   - group: PREPROD Shared Resources
-  - group: PREPROD das-csjproxy-api
   jobs:
   - template: pipeline-templates/job/deploy.yml
     parameters:
@@ -139,7 +133,6 @@ stages:
 #   variables:
 #   - group: MO Management Resources
 #   - group: MO Shared Resources
-#   - group: MO das-csjproxy-api
 #   jobs:
 #   - template: pipeline-templates/job/deploy.yml
 #     parameters:
@@ -155,7 +148,6 @@ stages:
 #   variables:
 #   - group: PROD Management Resources
 #   - group: PROD Shared Resources
-#   - group: PROD das-csjproxy-api
 #   jobs:
 #   - template: pipeline-templates/job/deploy.yml
 #     parameters:
