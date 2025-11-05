@@ -228,14 +228,14 @@
                         "value": "[variables('appServiceName')]"
                     },
                     "appServicePlanName": {
-                        "value": "[parameters('sharedBackEndAppServicePlanName')]"
+                        "value": "[variables('appServicePlanName')]"
                     },
                     "appServicePlanResourceGroup": {
-                        "value": "[parameters('sharedEnvResourceGroup')]"
+                        "value": "[variables('resourceGroupName')]"
                     },
-                    "subnetResourceId": {
-                        "value": "[parameters('sharedBackEndSubnetResourceId')]"
-                    },
+                    // "subnetResourceId": {
+                    //     "value": "[parameters('sharedBackEndSubnetResourceId')]"
+                    // },
                     "appServiceAppSettings": {
                         "value": {
                             "array": [
