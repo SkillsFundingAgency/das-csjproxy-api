@@ -1,19 +1,21 @@
 ﻿using FluentValidation;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Options;
 using Polly;
 using SFA.DAS.Api.Common.Configuration;
+using SFA.DAS.FAA.CSJProxy.Application.Queries.CivilServiceJobs;
 using SFA.DAS.FAA.CSJProxy.Domain.Configurations;
 using SFA.DAS.FAA.CSJProxy.Domain.Interfaces;
+using SFA.DAS.FAA.CSJProxy.Domain.Services;
 using SFA.DAS.FAA.CSJProxy.Infrastructure.Api;
 using System.Diagnostics.CodeAnalysis;
-using SFA.DAS.FAA.CSJProxy.Application.Queries.CivilServiceJobs;
 
 namespace SFA.DAS.FAA.CSJProxy.Api.AppStart;
 
 [ExcludeFromCodeCoverage]
 public static class AddServiceRegistrationExtension
 {
-    public static void AddApplicationDependencies(this IServiceCollection services, IConfiguration configuration)
+    public static void AddApplicationDependencies(this IServiceCollection services)
     {
         // validators
         services.AddValidatorsFromAssembly(typeof(Program).Assembly, includeInternalTypes: true);
@@ -23,6 +25,7 @@ public static class AddServiceRegistrationExtension
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(GetCivilServiceJobsQuery).Assembly));
 
         // configuration options
+        services.AddScoped<ICivilServiceApiService, CivilServiceApiService>();
         services.AddHttpClient<IApiClient, ApiClient>().ConfigureHttpClient((serviceProvider, client) =>
         {
             var civilServiceJobsConfiguration = serviceProvider.GetService<IOptions<CivilServiceJobsConfiguration>>()!.Value;
@@ -37,14 +40,16 @@ public static class AddServiceRegistrationExtension
         // health checks
         services
             .AddHealthChecks()
-            .AddCheck<DefaultHealthCheck>("default");
+            .AddCheck<DefaultHealthCheck>("default")
+            .AddCheck<CivilServiceApiHealthCheck>("Civil Service Jobs Api Health Check",
+                failureStatus: HealthStatus.Degraded, tags: ["ready"]);
     }
 
     public static void AddConfigurationOptions(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddOptions();
         services.Configure<AzureActiveDirectoryConfiguration>(configuration.GetSection("AzureAd"));
-        services.AddSingleton(cfg => cfg.GetService<IOptions<AzureActiveDirectoryConfiguration>>().Value);
+        services.AddSingleton(cfg => cfg.GetService<IOptions<AzureActiveDirectoryConfiguration>>()!.Value);
         services.Configure<CivilServiceJobsConfiguration>(configuration.GetSection(nameof(CivilServiceJobsConfiguration)));
         services.AddSingleton(cfg => cfg.GetService<IOptions<CivilServiceJobsConfiguration>>()!.Value);
     }

@@ -7,7 +7,7 @@ namespace SFA.DAS.FAA.CSJProxy.Api.AppStart;
 [ExcludeFromCodeCoverage]
 public static class HealthCheckStartup
 {
-    public static IApplicationBuilder UseHealthChecks(this IApplicationBuilder app)
+    public static void UseHealthChecks(this IApplicationBuilder app)
     {
         app.UseHealthChecks("/health", new HealthCheckOptions
         {
@@ -23,7 +23,5 @@ public static class HealthCheckStartup
                 return context.Response.WriteAsync("");
             }
         });
-
-        return app;
     }
 }

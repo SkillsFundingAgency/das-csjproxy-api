@@ -1,9 +1,18 @@
 ﻿using System.Net;
 
 namespace SFA.DAS.FAA.CSJProxy.Domain.Models;
-public class ApiResponse<TResponse>(TResponse body, HttpStatusCode statusCode, string? errorContent)
+public class ApiResponse<TResponse>
 {
-    public TResponse Body { get; } = body;
-    public HttpStatusCode StatusCode { get; } = statusCode;
-    public string? ErrorContent { get; } = errorContent;
+    public TResponse Body { get; }
+    public HttpStatusCode StatusCode { get; }
+    public string ErrorContent { get; }
+
+    public ApiResponse() { }
+
+    public ApiResponse(TResponse body, HttpStatusCode statusCode, string errorContent)
+    {
+        Body = body;
+        StatusCode = statusCode;
+        ErrorContent = errorContent;
+    }
 }

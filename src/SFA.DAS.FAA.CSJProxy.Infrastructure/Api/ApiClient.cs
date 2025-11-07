@@ -11,7 +11,7 @@ public class ApiClient(HttpClient httpClient) : IApiClient
         var response = await httpClient.SendAsync(requestMessage, cancellationToken).ConfigureAwait(false);
         var responseContent = await response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
         return response.IsSuccessStatusCode
-            ? new ApiResponse<TResponse?>(JsonConvert.DeserializeObject<TResponse>(responseContent), response.StatusCode, null)
+            ? new ApiResponse<TResponse?>(JsonConvert.DeserializeObject<TResponse>(responseContent), response.StatusCode, "")
             : new ApiResponse<TResponse?>(default, response.StatusCode, responseContent);
     }
 }

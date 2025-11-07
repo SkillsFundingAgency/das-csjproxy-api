@@ -6,10 +6,10 @@ using SFA.DAS.FAA.CSJProxy.Domain.Responses;
 
 namespace SFA.DAS.FAA.CSJProxy.Application.Queries.CivilServiceJobs;
 public class GetCivilServiceJobsQueryHandler(
-    IApiClient apiClient,
+    ICivilServiceApiService apiService,
     ILogger<GetCivilServiceJobsQueryHandler> logger) : IRequestHandler<GetCivilServiceJobsQuery, GetCivilServiceJobsQueryResult>
 {
-    public async Task<GetCivilServiceJobsQueryResult> Handle(GetCivilServiceJobsQuery request, CancellationToken cancellationToken)
+    public async Task<GetCivilServiceJobsQueryResult> Handle(GetCivilServiceJobsQuery query, CancellationToken cancellationToken)
     {
         // Fetch the civil service jobs from the API
         logger.LogInformation("Fetching Civil Service Jobs from API");
@@ -18,7 +18,7 @@ public class GetCivilServiceJobsQueryHandler(
         var outboundIp = await LogOutboundIpAsync();
         logger.LogInformation("Outbound IP for CSJ API request: {ip}", outboundIp);
 
-        var response = await apiClient.GetWithResponseCodeAsync<GetCivilServiceJobsApiResponse>(new GetCivilServiceJobsApiRequest(), cancellationToken);
+        var response = await apiService.GetCivilServiceApiResponse<GetCivilServiceJobsApiResponse>(new GetCivilServiceJobsApiRequest(), cancellationToken);
 
         // Log the response details. Temp logging for debugging purposes.
         logger.LogInformation("CSJ Response code from API: {response}", response.StatusCode);

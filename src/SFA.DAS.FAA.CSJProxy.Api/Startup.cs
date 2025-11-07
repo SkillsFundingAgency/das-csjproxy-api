@@ -91,7 +91,7 @@ internal class Startup
             });
 
         services.AddConfigurationOptions(Configuration);
-        services.AddApplicationDependencies(Configuration);
+        services.AddApplicationDependencies();
         services.AddOpenTelemetryRegistration(Configuration["APPLICATIONINSIGHTS_CONNECTION_STRING"]!);
         services.ConfigureHealthChecks();
         services.AddEndpointsApiExplorer();

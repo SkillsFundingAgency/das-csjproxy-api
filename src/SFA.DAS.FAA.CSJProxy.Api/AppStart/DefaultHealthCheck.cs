@@ -10,7 +10,6 @@ public class DefaultHealthCheck : IHealthCheck
     {
         try
         {
-            // external endpoint health checks could go here
             return Task.FromResult(HealthCheckResult.Healthy());
         }
         catch
