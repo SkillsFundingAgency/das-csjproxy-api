@@ -35,19 +35,10 @@
         "sharedManagementResourceGroup": {
             "type": "string"
         },
-        "sharedKeyVaultName": {
-            "type": "string"
-        },
         "customHostName": {
             "type": "string"
         },
         "keyVaultCertificateName": {
-            "type": "string"
-        },
-        "sharedBackEndAppServicePlanName": {
-            "type": "string"
-        },
-        "sharedBackEndSubnetResourceId": {
             "type": "string"
         },
         "backEndAccessRestrictions": {
@@ -179,7 +170,7 @@
             "apiVersion": "2021-04-01",
             "name": "[concat(variables('appServiceName'), '-app-service-certificate-', parameters('utcValue'))]",
             "type": "Microsoft.Resources/deployments",
-            "resourceGroup": "[parameters('sharedEnvResourceGroup')]",
+            "resourceGroup": "[variables('resourceGroupName')]",
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
@@ -191,10 +182,10 @@
                         "value": "[parameters('keyVaultCertificateName')]"
                     },
                     "keyVaultName": {
-                        "value": "[parameters('sharedKeyVaultName')]"
+                        "value": "[variables('keyVaultName')]"
                     },
                     "keyVaultResourceGroup": {
-                        "value": "[parameters('sharedManagementResourceGroup')]"
+                        "value": "[variables('resourceGroupName')]"
                     }
                 }
             }
@@ -312,9 +303,9 @@
                     "customHostName": {
                         "value": "[parameters('customHostname')]"
                     },
-                    // "certificateThumbprint": {
-                    //     "value": "[reference(concat(variables('appServiceName'), '-app-service-certificate-', parameters('utcValue'))).outputs.certificateThumbprint.value]"
-                    // },
+                    "certificateThumbprint": {
+                        "value": "[reference(concat(variables('appServiceName'), '-app-service-certificate-', parameters('utcValue'))).outputs.certificateThumbprint.value]"
+                    },
                     "ipSecurityRestrictions": {
                         "value": "[parameters('backEndAccessRestrictions')]"
                     },
