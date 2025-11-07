@@ -90,6 +90,7 @@ internal class Startup
                 options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
             });
 
+        services.AddConfigurationOptions(Configuration);
         services.AddApplicationDependencies(Configuration);
         services.AddOpenTelemetryRegistration(Configuration["APPLICATIONINSIGHTS_CONNECTION_STRING"]!);
         services.ConfigureHealthChecks();

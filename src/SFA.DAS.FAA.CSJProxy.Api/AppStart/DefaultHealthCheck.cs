@@ -6,16 +6,16 @@ namespace SFA.DAS.FAA.CSJProxy.Api.AppStart;
 [ExcludeFromCodeCoverage]
 public class DefaultHealthCheck : IHealthCheck
 {
-    public async Task<HealthCheckResult> CheckHealthAsync(HealthCheckContext context, CancellationToken cancellationToken = default)
+    public Task<HealthCheckResult> CheckHealthAsync(HealthCheckContext context, CancellationToken cancellationToken = default)
     {
         try
         {
             // external endpoint health checks could go here
-            return HealthCheckResult.Healthy();
+            return Task.FromResult(HealthCheckResult.Healthy());
         }
         catch
         {
-            return HealthCheckResult.Unhealthy();
+            return Task.FromResult(HealthCheckResult.Unhealthy());
         }
     }
 }
