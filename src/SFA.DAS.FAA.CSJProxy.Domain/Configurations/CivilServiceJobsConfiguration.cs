@@ -1,6 +1,6 @@
 ﻿namespace SFA.DAS.FAA.CSJProxy.Domain.Configurations;
-public class CivilServiceJobsConfiguration
+public record CivilServiceJobsConfiguration
 {
-    public required string Url { get; set; }
-    public required string ApiKey { get; set; }
+    public required string ApiBaseUrl { get; init; }
+    public required string ApiKey { get; init; }
 }

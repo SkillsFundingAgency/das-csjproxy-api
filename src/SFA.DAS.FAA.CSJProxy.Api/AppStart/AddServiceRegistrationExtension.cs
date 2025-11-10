@@ -29,7 +29,7 @@ public static class AddServiceRegistrationExtension
         services.AddHttpClient<IApiClient, ApiClient>().ConfigureHttpClient((serviceProvider, client) =>
         {
             var civilServiceJobsConfiguration = serviceProvider.GetService<IOptions<CivilServiceJobsConfiguration>>()!.Value;
-            client.BaseAddress = new Uri(civilServiceJobsConfiguration.Url);
+            client.BaseAddress = new Uri(civilServiceJobsConfiguration.ApiBaseUrl);
             client.DefaultRequestHeaders.Add("Accept", "application/json");
             client.DefaultRequestHeaders.Add("x-api-key", civilServiceJobsConfiguration.ApiKey);
         }).AddPolicyHandler(GetRetryPolicy());
