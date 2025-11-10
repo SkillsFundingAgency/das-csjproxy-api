@@ -23,7 +23,7 @@ internal class WhenGettingApiHealth
         //Arrange
         var apiResponse = new ApiResponse<GetCivilServiceJobsApiResponse>(response, HttpStatusCode.OK, string.Empty);
         apiClient
-            .Setup(x => x.GetWithResponseCodeAsync<GetCivilServiceJobsApiResponse>(It.IsAny<GetCivilServiceJobsApiRequest>(), token))
+            .Setup(x => x.GetWithResponseCodeAsync<GetCivilServiceJobsApiResponse>(It.IsAny<GetCivilServiceJobsApiRequest>(), token))!
             .ReturnsAsync(apiResponse);
 
 
@@ -38,8 +38,9 @@ internal class WhenGettingApiHealth
     [MoqInlineAutoData(HttpStatusCode.BadGateway)]
     [MoqInlineAutoData(HttpStatusCode.NotFound)]
     [MoqInlineAutoData(HttpStatusCode.NotAcceptable)]
-    public async Task Then_The_Health_Is_Degraded_Returned_As_False_From_The_Api(GetCivilServiceJobsApiRequest request,
+    public async Task Then_The_Health_Is_Degraded_Returned_As_False_From_The_Api(
         HttpStatusCode statusCode,
+        GetCivilServiceJobsApiRequest request,
         GetCivilServiceJobsApiResponse response,
         [Frozen] Mock<IApiClient> apiClient,
         [Greedy] CivilServiceApiService service,
@@ -48,7 +49,7 @@ internal class WhenGettingApiHealth
         //Arrange
         var apiResponse = new ApiResponse<GetCivilServiceJobsApiResponse>(response, statusCode, string.Empty);
         apiClient
-            .Setup(x => x.GetWithResponseCodeAsync<GetCivilServiceJobsApiResponse>(It.IsAny<GetCivilServiceJobsApiRequest>(), token))
+            .Setup(x => x.GetWithResponseCodeAsync<GetCivilServiceJobsApiResponse>(It.IsAny<GetCivilServiceJobsApiRequest>(), token))!
             .ReturnsAsync(apiResponse);
 
         //Act

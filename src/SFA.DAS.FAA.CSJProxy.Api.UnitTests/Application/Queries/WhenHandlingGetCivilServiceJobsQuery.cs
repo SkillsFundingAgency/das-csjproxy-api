@@ -26,7 +26,7 @@ internal class WhenHandlingGetCivilServiceJobsQuery
     {
         var apiResponse = new ApiResponse<GetCivilServiceJobsApiResponse>(response, HttpStatusCode.OK, string.Empty);
         apiClient
-            .Setup(x => x.GetCivilServiceApiResponse<GetCivilServiceJobsApiResponse>(It.IsAny<GetCivilServiceJobsApiRequest>(), token))
+            .Setup(x => x.GetCivilServiceApiResponse<GetCivilServiceJobsApiResponse>(It.IsAny<GetCivilServiceJobsApiRequest>(), token))!
             .ReturnsAsync(apiResponse);
 
         // act
@@ -52,7 +52,7 @@ internal class WhenHandlingGetCivilServiceJobsQuery
         // arrange
         var apiResponse = new ApiResponse<GetCivilServiceJobsApiResponse>(new GetCivilServiceJobsApiResponse(), statusCode, string.Empty);
         apiClient
-           .Setup(x => x.GetCivilServiceApiResponse<GetCivilServiceJobsApiResponse>(It.IsAny<GetCivilServiceJobsApiRequest>(), token))
+           .Setup(x => x.GetCivilServiceApiResponse<GetCivilServiceJobsApiResponse>(It.IsAny<GetCivilServiceJobsApiRequest>(), token))!
            .ReturnsAsync(apiResponse);
 
         // act

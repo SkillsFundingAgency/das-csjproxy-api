@@ -22,7 +22,7 @@ public class CivilServiceApiService(IApiClient apiClient) : ICivilServiceApiServ
                 new GetCivilServiceJobsApiRequest(),
                 cancellationToken);
 
-            return response?.StatusCode == HttpStatusCode.OK;
+            return response.StatusCode == HttpStatusCode.OK;
         }
         catch
         {

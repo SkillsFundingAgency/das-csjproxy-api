@@ -24,12 +24,12 @@ internal class WhenGettingCivilServiceApiResponse
         //Arrange
         var apiResponse = new ApiResponse<GetCivilServiceJobsApiResponse>(response, HttpStatusCode.OK, string.Empty);
         apiClient
-            .Setup(x => x.GetWithResponseCodeAsync<GetCivilServiceJobsApiResponse>(It.IsAny<GetCivilServiceJobsApiRequest>(), token))
+            .Setup(x => x.GetWithResponseCodeAsync<GetCivilServiceJobsApiResponse>(It.IsAny<GetCivilServiceJobsApiRequest>(), token))!
             .ReturnsAsync(apiResponse);
 
                 //Act
         var actualResponse = await service.GetCivilServiceApiResponse<GetCivilServiceJobsApiResponse>(request, token);
         //Assert
-        actualResponse.Should().BeEquivalentTo(response);
+        actualResponse.Should().BeEquivalentTo(response, options => options.ExcludingMissingMembers());
     }
 }

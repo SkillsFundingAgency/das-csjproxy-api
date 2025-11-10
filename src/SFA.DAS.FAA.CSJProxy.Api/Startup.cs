@@ -94,6 +94,7 @@ internal class Startup
         services.AddApplicationDependencies();
         services.AddOpenTelemetryRegistration(Configuration["APPLICATIONINSIGHTS_CONNECTION_STRING"]!);
         services.ConfigureHealthChecks();
+        services.AddControllers();
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen(c =>
         {
@@ -112,17 +113,16 @@ internal class Startup
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
         if (env.IsDevelopment()) app.UseDeveloperExceptionPage();
-        app.UseAuthentication();
-
+        app.UseRouting();
         app.UseSwagger();
         app.UseSwaggerUI(options =>
         {
             options.SwaggerEndpoint("/swagger/v1/swagger.json", "SFA.DAS.FAA.CSJProxy.Api v1");
             options.RoutePrefix = string.Empty;
         });
+        app.UseAuthentication();
         app.UseHealthChecks();
         app.UseHttpsRedirection();
-        app.UseRouting();
         app.UseAuthorization();
         app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
     }
