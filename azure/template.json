@@ -147,7 +147,7 @@
                         "value": false
                     },
                     "enableFirewall": {
-                        "value": true
+                        "value": false
                     },
                     "enableRbacAuthorization": {
                         "Value": true
