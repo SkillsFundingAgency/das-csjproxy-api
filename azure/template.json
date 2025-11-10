@@ -190,7 +190,7 @@
                 }
             },
             "dependsOn": [
-                "[concat(variables('appServiceName'), '-', parameters('utcValue'))]"
+                "[concat(variables('keyVaultName'), '-', parameters('utcValue'))]"
             ]
         },
         {
@@ -215,7 +215,10 @@
                         "value": "[variables('resourceGroupName')]"
                     }
                 }
-            }
+            },
+            "dependsOn": [
+                "[concat('role-assignment-', variables('appServiceName'),'-', variables('keyVaultName'))]"
+            ]
         },
         {
             "apiVersion": "2021-04-01",
