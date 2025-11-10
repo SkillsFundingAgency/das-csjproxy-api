@@ -167,6 +167,33 @@
             ]
         },
         {
+            "apiVersion": "2022-09-01",
+            "name": "[concat('role-assignment-', variables('appServiceName'),'-', variables('keyVaultName'))]",
+            "type": "Microsoft.Resources/deployments",
+            "resourceGroup": "[variables('resourceGroupName')]",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[uri(variables('deploymentUrlBase'),'role-assignments/role-assignment-key-vault.json')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "principalId": {
+                        "value": "[reference(concat(variables('appServiceName'), '-', parameters('utcValue'))).outputs.managedServiceIdentityId.value]"
+                    },
+                    "assignmentType": {
+                        "value": "Key Vault Certificate User"
+                    },
+                    "resourceName": {
+                        "value": "[variables('keyVaultName')]"
+                    }
+                }
+            },
+            "dependsOn": [
+                "[concat(variables('appServiceName'), '-', parameters('utcValue'))]"
+            ]
+        },
+        {
             "apiVersion": "2021-04-01",
             "name": "[concat(variables('appServiceName'), '-app-service-certificate-', parameters('utcValue'))]",
             "type": "Microsoft.Resources/deployments",
