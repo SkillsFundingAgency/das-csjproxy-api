@@ -188,10 +188,7 @@
                         "value": "[variables('keyVaultName')]"
                     }
                 }
-            },
-            "dependsOn": [
-                "[concat(variables('keyVaultName'), '-', parameters('utcValue'))]"
-            ]
+            }
         },
         {
             "apiVersion": "2021-04-01",
