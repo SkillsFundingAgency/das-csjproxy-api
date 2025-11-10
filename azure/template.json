@@ -144,7 +144,7 @@
                         "value": "[variables('keyVaultName')]"
                     },
                     "enabledForTemplateDeployment": {
-                        "value": false
+                        "value": true
                     },
                     "enableFirewall": {
                         "value": false
