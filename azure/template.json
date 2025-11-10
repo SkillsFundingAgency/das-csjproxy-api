@@ -203,7 +203,7 @@
                 },
                 "parameters": {
                     "keyVaultCertificateName": {
-                        "value": "[parameters('keyVaultCertificateName')]"
+                        "value": "[concat(parameters('keyVaultCertificateName'), '-', parameters('utcValue'))]"
                     },
                     "keyVaultName": {
                         "value": "[variables('keyVaultName')]"
