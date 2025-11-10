@@ -158,7 +158,7 @@
                     //     ]
                     // },
                     "allowTrustedMicrosoftServices": {
-                        "value": false
+                        "value": true
                     }
                 }
             },
