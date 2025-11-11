@@ -147,7 +147,7 @@
                         "value": true
                     },
                     "enableFirewall": {
-                        "value": false
+                        "value": true
                     },
                     "enableRbacAuthorization": {
                         "Value": true
@@ -183,6 +183,30 @@
                     },
                     "assignmentType": {
                         "value": "Key Vault Certificate User"
+                    },
+                    "resourceName": {
+                        "value": "[variables('keyVaultName')]"
+                    }
+                }
+            }
+        },
+        {
+            "apiVersion": "2022-09-01",
+            "name": "[concat('role-assignment-', variables('appServiceName'),'-', variables('keyVaultName'))]",
+            "type": "Microsoft.Resources/deployments",
+            "resourceGroup": "[variables('resourceGroupName')]",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[uri(variables('deploymentUrlBase'),'role-assignments/role-assignment-key-vault.json')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "principalId": {
+                        "value": "[reference(concat(variables('appServiceName'), '-', parameters('utcValue'))).outputs.managedServiceIdentityId.value]"
+                    },
+                    "assignmentType": {
+                        "value": "Key Vault Secret User"
                     },
                     "resourceName": {
                         "value": "[variables('keyVaultName')]"
