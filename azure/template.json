@@ -206,7 +206,7 @@
                         "value": "[reference(concat(variables('appServiceName'), '-', parameters('utcValue'))).outputs.managedServiceIdentityId.value]"
                     },
                     "assignmentType": {
-                        "value": "Key Vault Secret User"
+                        "value": "Key Vault Secrets User"
                     },
                     "resourceName": {
                         "value": "[variables('keyVaultName')]"
