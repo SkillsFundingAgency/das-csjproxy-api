@@ -152,11 +152,6 @@
                     "enableRbacAuthorization": {
                         "Value": true
                     },
-                    // "subnetResourceIdList": {
-                    //     "value": [
-                    //         "[reference(concat(parameters('subnetObject').name, '-', parameters('utcValue'))).outputs.SubnetResourceId.value]"
-                    //     ]
-                    // },
                     "allowTrustedMicrosoftServices": {
                         "value": true
                     }
