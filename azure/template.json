@@ -152,11 +152,6 @@
                     "enableRbacAuthorization": {
                         "Value": true
                     },
-                    // "subnetResourceIdList": {
-                    //     "value": [
-                    //         "[reference(concat(parameters('subnetObject').name, '-', parameters('utcValue'))).outputs.SubnetResourceId.value]"
-                    //     ]
-                    // },
                     "allowTrustedMicrosoftServices": {
                         "value": true
                     }
@@ -311,9 +306,6 @@
                     "appServicePlanResourceGroup": {
                         "value": "[variables('resourceGroupName')]"
                     },
-                    // "subnetResourceId": {
-                    //     "value": "[parameters('sharedBackEndSubnetResourceId')]"
-                    // },
                     "appServiceAppSettings": {
                         "value": {
                             "array": [
