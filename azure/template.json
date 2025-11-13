@@ -23,6 +23,18 @@
     "loggingRedisKey": {
       "type": "string"
     },
+    "tenant": {
+      "type": "string"
+    },
+    "faaCsjProxyApiIdentifierUri": {
+      "type": "string"
+    },
+    "civilServiceJobsApiBaseUrl": {
+      "type": "string"
+    },
+    "civilServiceJobsApiKey": {
+      "type": "string"
+    },
     "deployPrivateLinkedScopedResource": {
       "type": "bool"
     },
@@ -336,6 +348,22 @@
                 {
                   "name": "LoggingRedisKey",
                   "value": "[parameters('loggingRedisKey')]"
+                },
+                {
+                  "name": "Identifier",
+                  "value": "[parameters('faaCsjProxyApiIdentifierUri')]"
+                },
+                {
+                  "name": "ApiBaseUrl",
+                  "value": "[parameters('civilServiceJobsApiBaseUrl')]"
+                },
+                {
+                  "name": "ApiKey",
+                  "value": "[parameters('civilServiceJobsApiKey')]"
+                },
+                {
+                  "name": "Tenant",
+                  "value": "[parameters('tenant')]"
                 }
               ]
             }
