@@ -350,19 +350,19 @@
                   "value": "[parameters('loggingRedisKey')]"
                 },
                 {
-                  "name": "Identifier",
+                  "name": "AzureActiveDirectoryConfiguration__Identifier",
                   "value": "[parameters('faaCsjProxyApiIdentifierUri')]"
                 },
                 {
-                  "name": "ApiBaseUrl",
+                  "name": "CivilServiceJobsConfiguration__ApiBaseUrl",
                   "value": "[parameters('civilServiceJobsApiBaseUrl')]"
                 },
                 {
-                  "name": "ApiKey",
+                  "name": "CivilServiceJobsConfiguration__ApiKey",
                   "value": "[parameters('civilServiceJobsApiKey')]"
                 },
                 {
-                  "name": "Tenant",
+                  "name": "AzureActiveDirectoryConfiguration__Tenant",
                   "value": "[parameters('tenant')]"
                 }
               ]
