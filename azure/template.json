@@ -23,6 +23,18 @@
     "loggingRedisKey": {
       "type": "string"
     },
+    "tenant": {
+      "type": "string"
+    },
+    "faaCsjProxyApiIdentifierUri": {
+      "type": "string"
+    },
+    "civilServiceJobsApiBaseUrl": {
+      "type": "string"
+    },
+    "civilServiceJobsApiKey": {
+      "type": "string"
+    },
     "deployPrivateLinkedScopedResource": {
       "type": "bool"
     },
@@ -336,6 +348,22 @@
                 {
                   "name": "LoggingRedisKey",
                   "value": "[parameters('loggingRedisKey')]"
+                },
+                {
+                  "name": "AzureActiveDirectoryConfiguration__Identifier",
+                  "value": "[parameters('faaCsjProxyApiIdentifierUri')]"
+                },
+                {
+                  "name": "CivilServiceJobsConfiguration__ApiBaseUrl",
+                  "value": "[parameters('civilServiceJobsApiBaseUrl')]"
+                },
+                {
+                  "name": "CivilServiceJobsConfiguration__ApiKey",
+                  "value": "[parameters('civilServiceJobsApiKey')]"
+                },
+                {
+                  "name": "AzureActiveDirectoryConfiguration__Tenant",
+                  "value": "[parameters('tenant')]"
                 }
               ]
             }
