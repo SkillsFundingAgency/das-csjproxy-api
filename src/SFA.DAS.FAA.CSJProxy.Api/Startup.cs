@@ -90,9 +90,11 @@ internal class Startup
                 options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
             });
 
-        services.AddApplicationDependencies(Configuration);
+        services.AddConfigurationOptions(Configuration);
+        services.AddApplicationDependencies();
         services.AddOpenTelemetryRegistration(Configuration["APPLICATIONINSIGHTS_CONNECTION_STRING"]!);
         services.ConfigureHealthChecks();
+        services.AddControllers();
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen(c =>
         {
@@ -110,19 +112,25 @@ internal class Startup
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
-        if (env.IsDevelopment()) app.UseDeveloperExceptionPage();
-        app.UseAuthentication();
-
+        if (env.IsDevelopment())
+        {
+            app.UseDeveloperExceptionPage();
+        }
         app.UseSwagger();
         app.UseSwaggerUI(options =>
         {
             options.SwaggerEndpoint("/swagger/v1/swagger.json", "SFA.DAS.FAA.CSJProxy.Api v1");
-            options.RoutePrefix = string.Empty;
+            options.RoutePrefix = "swagger";
         });
-        app.UseHealthChecks();
+
         app.UseHttpsRedirection();
         app.UseRouting();
+        app.UseAuthentication();
         app.UseAuthorization();
-        app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+        app.UseHealthChecks();
+        app.UseEndpoints(endpoints =>
+        {
+            endpoints.MapControllers();
+        });
     }
 }
