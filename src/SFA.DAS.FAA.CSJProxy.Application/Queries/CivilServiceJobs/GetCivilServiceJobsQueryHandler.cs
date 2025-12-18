@@ -34,7 +34,7 @@ public class GetCivilServiceJobsQueryHandler(
 
         return new GetCivilServiceJobsQueryResult
         {
-            Jobs = response.Body.Jobs
+            Jobs = response.Body.Jobs.Where(job => job.Country.En != null && job.Country.En.Contains("England", StringComparison.CurrentCultureIgnoreCase)).ToList()
         };
     }
 
