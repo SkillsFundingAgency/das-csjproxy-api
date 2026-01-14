@@ -94,7 +94,7 @@
     "resourceGroupName": "[concat(variables('resourceNamePrefix'), '-rg')]",
     "appServicePlanName": "[concat(variables('resourceNamePrefix'), '-asp')]",
     "appServiceName": "[concat(variables('resourceNamePrefix'), '-as')]",
-    "keyVaultName": "[concat(variables('resourceNamePrefix'), '-kv')]",
+    "keyVaultName": "[concat(variables('resourceNamePrefix'), '-kv', if(equals(parameters('resourceEnvironmentName'), 'prd'), '-uks', ''))]",
     "privateLinkScopeName": "[toLower(concat('das-', parameters('resourceEnvironmentName'),'-shared-ampls'))]",
     "configNames": "SFA.DAS.CSJProxy.Api"
   },
