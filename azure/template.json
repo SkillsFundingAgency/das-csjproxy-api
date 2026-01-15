@@ -94,7 +94,7 @@
     "resourceGroupName": "[concat(variables('resourceNamePrefix'), '-rg')]",
     "appServicePlanName": "[concat(variables('resourceNamePrefix'), '-asp')]",
     "appServiceName": "[concat(variables('resourceNamePrefix'), '-as')]",
-    "keyVaultName": "[concat(variables('resourceNamePrefix'), '-kv', if(equals(parameters('resourceEnvironmentName'), 'prd'), '-1', ''))]",
+    "keyVaultName": "[concat(variables('resourceNamePrefix'), '-kv')]",
     "privateLinkScopeName": "[toLower(concat('das-', parameters('resourceEnvironmentName'),'-shared-ampls'))]",
     "configNames": "SFA.DAS.CSJProxy.Api"
   },
@@ -142,7 +142,7 @@
     },
     {
       "apiVersion": "2021-04-01",
-      "name": "[concat(variables('keyVaultName'), '-', parameters('utcValue'))]",
+      "name": "[concat(parameters('keyVaultName'), '-', parameters('utcValue'))]",
       "type": "Microsoft.Resources/deployments",
       "resourceGroup": "[variables('resourceGroupName')]",
       "properties": {
@@ -153,7 +153,7 @@
         },
         "parameters": {
           "keyVaultName": {
-            "value": "[variables('keyVaultName')]"
+            "value": "[parameters('keyVaultName')]"
           },
           "enabledForTemplateDeployment": {
             "value": true
