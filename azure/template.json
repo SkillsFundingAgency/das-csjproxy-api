@@ -96,7 +96,7 @@
     "resourceNamePrefix": "[toLower(concat('das-', parameters('resourceEnvironmentName'),'-', parameters('serviceName')))]",
     "resourceGroupName": "[concat(variables('resourceNamePrefix'), '-rg')]",
     "appServicePlanName": "[concat(variables('resourceNamePrefix'), '-asp')]",
-    "appServiceName": "[concat(variables('resourceNamePrefix'), '-as')]",
+    "appServiceName": "[if(equals(parameters('resourceEnvironmentName'), 'prd'), concat(variables('resourceNamePrefix'), '-as-1'), concat(variables('resourceNamePrefix'), '-as'))]",
     "privateLinkScopeName": "[toLower(concat('das-', parameters('resourceEnvironmentName'),'-shared-ampls'))]",
     "configNames": "SFA.DAS.CSJProxy.Api"
   },
