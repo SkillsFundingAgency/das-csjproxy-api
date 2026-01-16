@@ -190,7 +190,7 @@
         },
         "parameters": {
           "principalId": {
-            "value": "[reference(concat(variables('appServiceName'), '-', parameters('utcValue'))).outputs.managedServiceIdentityId.value]"
+            "value": "[reference(concat(parameters('appServiceName'), '-', parameters('utcValue'))).outputs.managedServiceIdentityId.value]"
           },
           "assignmentType": {
             "value": "Key Vault Certificate User"
