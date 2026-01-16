@@ -9,14 +9,18 @@ using SFA.DAS.FAA.CSJProxy.Domain.Requests;
 using SFA.DAS.FAA.CSJProxy.Domain.Responses;
 using SFA.DAS.Testing.AutoFixture;
 using System.Net;
+using SFA.DAS.FAA.CSJProxy.Domain.Models.Response;
 
 namespace SFA.DAS.FAA.CSJProxy.Api.UnitTests.Application.Queries;
 
 [TestFixture]
 internal class WhenHandlingGetCivilServiceJobsQuery
 {
-    [Test, MoqAutoData]
-    public async Task Then_The_Request_Is_Handled_Correctly(
+    [Test]
+    [MoqInlineAutoData("england")]
+    [MoqInlineAutoData("ENGLAND")]
+    [MoqInlineAutoData("engLAND")]
+    public async Task Then_The_Request_Is_Handled_Correctly(string countryName,
         GetCivilServiceJobsQuery query,
         GetCivilServiceJobsApiResponse response,
         [Frozen] Mock<ICivilServiceApiService> apiClient,
@@ -24,6 +28,13 @@ internal class WhenHandlingGetCivilServiceJobsQuery
         [Greedy] GetCivilServiceJobsQueryHandler handler,
         CancellationToken token)
     {
+        foreach (var job in response.Jobs)
+        {
+            job.Country = new Country
+            {
+                En = countryName
+            };
+        }
         var apiResponse = new ApiResponse<GetCivilServiceJobsApiResponse>(response, HttpStatusCode.OK, string.Empty);
         apiClient
             .Setup(x => x.GetCivilServiceApiResponse<GetCivilServiceJobsApiResponse>(It.IsAny<GetCivilServiceJobsApiRequest>(), token))!
