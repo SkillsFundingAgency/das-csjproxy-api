@@ -50,6 +50,9 @@
     "customHostName": {
       "type": "string"
     },
+    "appServiceName": {
+      "type": "string"
+    },
     "keyVaultName": {
       "type": "string"
     },
@@ -96,7 +99,6 @@
     "resourceNamePrefix": "[toLower(concat('das-', parameters('resourceEnvironmentName'),'-', parameters('serviceName')))]",
     "resourceGroupName": "[concat(variables('resourceNamePrefix'), '-rg')]",
     "appServicePlanName": "[concat(variables('resourceNamePrefix'), '-asp')]",
-    "appServiceName": "[if(equals(parameters('resourceEnvironmentName'), 'prd'), concat(variables('resourceNamePrefix'), '-as-1'), concat(variables('resourceNamePrefix'), '-as'))]",
     "privateLinkScopeName": "[toLower(concat('das-', parameters('resourceEnvironmentName'),'-shared-ampls'))]",
     "configNames": "SFA.DAS.CSJProxy.Api"
   },
@@ -111,7 +113,7 @@
     },
     {
       "apiVersion": "2021-04-01",
-      "name": "[concat(variables('AppServiceName'), '-app-service-plan-', parameters('utcValue'))]",
+      "name": "[concat(parameters('appServiceName'), '-app-service-plan-', parameters('utcValue'))]",
       "type": "Microsoft.Resources/deployments",
       "resourceGroup": "[variables('resourceGroupName')]",
       "properties": {
@@ -177,7 +179,7 @@
     },
     {
       "apiVersion": "2022-09-01",
-      "name": "[concat('role-assignment-', variables('appServiceName'),'-', parameters('keyVaultName'))]",
+      "name": "[concat('role-assignment-', parameters('appServiceName'),'-', parameters('keyVaultName'))]",
       "type": "Microsoft.Resources/deployments",
       "resourceGroup": "[variables('resourceGroupName')]",
       "properties": {
@@ -201,7 +203,7 @@
     },
     {
       "apiVersion": "2022-09-01",
-      "name": "[concat('role-assignment-2-', variables('appServiceName'),'-', parameters('keyVaultName'))]",
+      "name": "[concat('role-assignment-2-', parameters('appServiceName'),'-', parameters('keyVaultName'))]",
       "type": "Microsoft.Resources/deployments",
       "resourceGroup": "[variables('resourceGroupName')]",
       "properties": {
@@ -212,7 +214,7 @@
         },
         "parameters": {
           "principalId": {
-            "value": "[reference(concat(variables('appServiceName'), '-', parameters('utcValue'))).outputs.managedServiceIdentityId.value]"
+            "value": "[reference(concat(parameters('appServiceName'), '-', parameters('utcValue'))).outputs.managedServiceIdentityId.value]"
           },
           "assignmentType": {
             "value": "Key Vault Secrets User"
@@ -225,7 +227,7 @@
     },
     {
       "apiVersion": "2021-04-01",
-      "name": "[concat(variables('appServiceName'), '-app-service-certificate-', parameters('utcValue'))]",
+      "name": "[concat(parameters('appServiceName'), '-app-service-certificate-', parameters('utcValue'))]",
       "type": "Microsoft.Resources/deployments",
       "resourceGroup": "[variables('resourceGroupName')]",
       "properties": {
@@ -249,7 +251,7 @@
     },
     {
       "apiVersion": "2021-04-01",
-      "name": "[concat(variables('appServiceName'), '-application-insights-', parameters('utcValue'))]",
+      "name": "[concat(parameters('appServiceName'), '-application-insights-', parameters('utcValue'))]",
       "type": "Microsoft.Resources/deployments",
       "resourceGroup": "[variables('resourceGroupName')]",
       "properties": {
@@ -260,10 +262,10 @@
         },
         "parameters": {
           "appInsightsName": {
-            "value": "[variables('appServiceName')]"
+            "value": "[parameters('appServiceName')]"
           },
           "attachedService": {
-            "value": "[variables('appServiceName')]"
+            "value": "[parameters('appServiceName')]"
           },
           "logAnalyticsWorkspaceId": {
             "value": "[resourceId(parameters('logAnalyticsSubscriptionId'),parameters('sharedManagementResourceGroup'),'Microsoft.OperationalInsights/workspaces',parameters('logAnalyticsWorkspaceName'))]"
@@ -277,7 +279,7 @@
     {
       "condition": "[parameters('deployPrivateLinkedScopedResource')]",
       "apiVersion": "2021-04-01",
-      "name": "[concat(variables('appServiceName'), '-private-link-scoped-', parameters('utcValue'))]",
+      "name": "[concat(parameters('appServiceName'), '-private-link-scoped-', parameters('utcValue'))]",
       "type": "Microsoft.Resources/deployments",
       "resourceGroup": "[parameters('sharedEnvResourceGroup')]",
       "properties": {
@@ -291,17 +293,17 @@
             "value": "[variables('privateLinkScopeName')]"
           },
           "scopedResourceName": {
-            "value": "[variables('appServiceName')]"
+            "value": "[parameters('appServiceName')]"
           },
           "scopedResourceId": {
-            "value": "[reference(concat(variables('appServiceName'), '-application-insights-', parameters('utcValue'))).outputs.AppInsightsResourceId.value]"
+            "value": "[reference(concat(parameters('appServiceName'), '-application-insights-', parameters('utcValue'))).outputs.AppInsightsResourceId.value]"
           }
         }
       }
     },
     {
       "apiVersion": "2021-04-01",
-      "name": "[concat(variables('appServiceName'), '-', parameters('utcValue'))]",
+      "name": "[concat(parameters('appServiceName'), '-', parameters('utcValue'))]",
       "type": "Microsoft.Resources/deployments",
       "resourceGroup": "[variables('resourceGroupName')]",
       "properties": {
@@ -312,7 +314,7 @@
         },
         "parameters": {
           "appServiceName": {
-            "value": "[variables('appServiceName')]"
+            "value": "[parameters('appServiceName')]"
           },
           "appServicePlanName": {
             "value": "[variables('appServicePlanName')]"
@@ -341,7 +343,7 @@
                 },
                 {
                   "name": "APPLICATIONINSIGHTS_CONNECTION_STRING",
-                  "value": "[reference(concat(variables('appServiceName'), '-application-insights-', parameters('utcValue'))).outputs.ConnectionString.value]"
+                  "value": "[reference(concat(parameters('appServiceName'), '-application-insights-', parameters('utcValue'))).outputs.ConnectionString.value]"
                 },
                 {
                   "name": "LoggingRedisConnectionString",
@@ -374,7 +376,7 @@
             "value": "[parameters('customHostname')]"
           },
           "certificateThumbprint": {
-            "value": "[reference(concat(variables('appServiceName'), '-app-service-certificate-', parameters('utcValue'))).outputs.certificateThumbprint.value]"
+            "value": "[reference(concat(parameters('appServiceName'), '-app-service-certificate-', parameters('utcValue'))).outputs.certificateThumbprint.value]"
           },
           "ipSecurityRestrictions": {
             "value": "[parameters('backEndAccessRestrictions')]"
@@ -396,7 +398,7 @@
     },
     "AppServiceName": {
       "type": "string",
-      "value": "[variables('appServiceName')]"
+      "value": "[parameters('appServiceName')]"
     }
   }
 }
