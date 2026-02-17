@@ -32,6 +32,11 @@ public class GetCivilServiceJobsQueryHandler(
             return new GetCivilServiceJobsQueryResult();
         }
 
+        foreach (var job in response.Body.Jobs)
+        {
+            job.SalaryMaximum += 10; // This is temp code to check the caching of the API response. The salary maximum is increased by 10 for each job to check if the API response is being cached or not.
+        }
+
         return new GetCivilServiceJobsQueryResult
         {
             Jobs = response.Body.Jobs.Where(job => job.Country.En != null && job.Country.En.Contains("England", StringComparison.CurrentCultureIgnoreCase)).ToList()
