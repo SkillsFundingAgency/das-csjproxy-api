@@ -1,5 +1,4 @@
 ﻿using Asp.Versioning;
-using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using SFA.DAS.Api.Common.AppStart;
@@ -10,6 +9,7 @@ using SFA.DAS.FAA.CSJProxy.Api.AppStart;
 using SFA.DAS.FAA.CSJProxy.Api.Filters;
 using System.Diagnostics.CodeAnalysis;
 using System.Text.Json.Serialization;
+using Microsoft.OpenApi;
 
 namespace SFA.DAS.FAA.CSJProxy.Api;
 
