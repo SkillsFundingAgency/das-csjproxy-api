@@ -1,15 +1,11 @@
-﻿using AutoFixture.NUnit3;
-using FluentAssertions;
+﻿using System.Net;
 using Microsoft.Extensions.Logging;
-using Moq;
 using SFA.DAS.FAA.CSJProxy.Application.Queries.CivilServiceJobs;
 using SFA.DAS.FAA.CSJProxy.Domain.Interfaces;
 using SFA.DAS.FAA.CSJProxy.Domain.Models;
+using SFA.DAS.FAA.CSJProxy.Domain.Models.Response;
 using SFA.DAS.FAA.CSJProxy.Domain.Requests;
 using SFA.DAS.FAA.CSJProxy.Domain.Responses;
-using SFA.DAS.Testing.AutoFixture;
-using System.Net;
-using SFA.DAS.FAA.CSJProxy.Domain.Models.Response;
 
 namespace SFA.DAS.FAA.CSJProxy.Api.UnitTests.Application.Queries;
 

@@ -1,15 +1,12 @@
-﻿using AutoFixture.NUnit3;
-using FluentAssertions;
-using Moq;
+﻿using System.Net;
 using SFA.DAS.FAA.CSJProxy.Domain.Interfaces;
 using SFA.DAS.FAA.CSJProxy.Domain.Models;
 using SFA.DAS.FAA.CSJProxy.Domain.Requests;
 using SFA.DAS.FAA.CSJProxy.Domain.Responses;
 using SFA.DAS.FAA.CSJProxy.Domain.Services;
-using SFA.DAS.Testing.AutoFixture;
-using System.Net;
 
 namespace SFA.DAS.FAA.CSJProxy.Api.UnitTests.Domain.Services.CivilServiceApiServiceTests;
+
 [TestFixture]
 internal class WhenGettingCivilServiceApiResponse
 {
