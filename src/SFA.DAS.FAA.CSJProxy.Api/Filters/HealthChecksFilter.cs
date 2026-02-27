@@ -1,56 +1,48 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using Microsoft.OpenApi;
+﻿using Microsoft.OpenApi.Any;
+using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
+using System.Diagnostics.CodeAnalysis;
 
 namespace SFA.DAS.FAA.CSJProxy.Api.Filters;
 
 [ExcludeFromCodeCoverage]
 public class HealthChecksFilter : IDocumentFilter
 {
-    private const string HealthCheckEndpoint = "/health";
+    private const string HealthCheckEndpoint = @"/health";
 
     public void Apply(OpenApiDocument swaggerDoc, DocumentFilterContext context)
     {
-        var operation = new OpenApiOperation
-        {
-            Tags = new HashSet<OpenApiTagReference>([new OpenApiTagReference(HealthCheckEndpoint, swaggerDoc)])
-        };
+        var pathItem = new OpenApiPathItem();
+        var operation = new OpenApiOperation();
+        operation.Tags.Add(new OpenApiTag { Name = "Service Status" });
 
-        var healthyResponse = new OpenApiResponse()
+        var healthyResponse = new OpenApiResponse();
+        healthyResponse.Content.Add("text/plain", new OpenApiMediaType
         {
-            Content = new Dictionary<string, OpenApiMediaType>()
+            Schema = new OpenApiSchema
             {
-                ["text/plain"] = new()
-                {
-                    Schema = new OpenApiSchema
-                    {
-                        Type = JsonSchemaType.String,
-                        Enum = ["Healthy"]
-                    }
-                }
+                Type = "string",
+                Enum = [
+                    new OpenApiString("Healthy"),
+                ]
             }
-        };
-        
-        operation.Responses!.Add("200", healthyResponse);
+        });
+        operation.Responses.Add("200", healthyResponse);
 
-        var unhealthyResponse = new OpenApiResponse()
+        var unhealthyResponse = new OpenApiResponse();
+        unhealthyResponse.Content.Add("text/plain", new OpenApiMediaType
         {
-            Content = new Dictionary<string, OpenApiMediaType>()
+            Schema = new OpenApiSchema
             {
-                ["text/plain"] = new()
-                {
-                    Schema = new OpenApiSchema
-                    {
-                        Type = JsonSchemaType.String,
-                        Enum = ["Unhealthy"]
-                    }
-                }
+                Type = "string",
+                Enum = [
+                    new OpenApiString("Unhealthy"),
+                ]
             }
-        };
+        });
 
         operation.Responses.Add("503", unhealthyResponse);
-        var pathItem = new OpenApiPathItem();
-        pathItem.AddOperation(HttpMethod.Get, operation);
+        pathItem.AddOperation(OperationType.Get, operation);
         swaggerDoc?.Paths.Add(HealthCheckEndpoint, pathItem);
     }
 }

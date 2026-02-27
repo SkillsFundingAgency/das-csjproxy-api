@@ -9,7 +9,7 @@ using SFA.DAS.FAA.CSJProxy.Api.AppStart;
 using SFA.DAS.FAA.CSJProxy.Api.Filters;
 using System.Diagnostics.CodeAnalysis;
 using System.Text.Json.Serialization;
-using Microsoft.OpenApi;
+using Microsoft.OpenApi.Models;
 
 namespace SFA.DAS.FAA.CSJProxy.Api;
 
