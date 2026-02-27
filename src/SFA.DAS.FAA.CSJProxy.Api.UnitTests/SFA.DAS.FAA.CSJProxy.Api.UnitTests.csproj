@@ -27,7 +27,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="NUnit3TestAdapter" Version="6.1.0" />
-    <PackageReference Include="SFA.DAS.Testing.AutoFixture" Version="17.1.165-prerelease-11" />
+    <PackageReference Include="SFA.DAS.Testing.AutoFixture" Version="17.1.165" />
   </ItemGroup>
 
   <ItemGroup>
