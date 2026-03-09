@@ -1,13 +1,10 @@
-﻿using AutoFixture.NUnit3;
-using FluentAssertions;
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Http.HttpResults;
-using Moq;
 using SFA.DAS.FAA.CSJProxy.Api.Controllers;
 using SFA.DAS.FAA.CSJProxy.Application.Queries.CivilServiceJobs;
-using SFA.DAS.Testing.AutoFixture;
 
 namespace SFA.DAS.FAA.CSJProxy.Api.UnitTests.Controllers.CivilServiceVacanciesControllerTest;
+
 [TestFixture]
 internal class WhenGettingTheVacancies
 {

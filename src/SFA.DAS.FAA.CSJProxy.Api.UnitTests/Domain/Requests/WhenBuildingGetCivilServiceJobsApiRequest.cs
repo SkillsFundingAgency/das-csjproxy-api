@@ -1,5 +1,4 @@
-﻿using FluentAssertions;
-using SFA.DAS.FAA.CSJProxy.Domain.Requests;
+﻿using SFA.DAS.FAA.CSJProxy.Domain.Requests;
 
 namespace SFA.DAS.FAA.CSJProxy.Api.UnitTests.Domain.Requests;
 [TestFixture]
