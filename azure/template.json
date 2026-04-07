@@ -354,7 +354,7 @@
                   "value": "[parameters('loggingRedisKey')]"
                 },
                 {
-                  "name": "AzureActiveDirectoryConfiguration__Identifier",
+                  "name": "AzureAd__Identifier",
                   "value": "[parameters('faaCsjProxyApiIdentifierUri')]"
                 },
                 {
@@ -366,7 +366,7 @@
                   "value": "[parameters('civilServiceJobsApiKey')]"
                 },
                 {
-                  "name": "AzureActiveDirectoryConfiguration__Tenant",
+                  "name": "AzureAd__Tenant",
                   "value": "[parameters('tenant')]"
                 }
               ]
