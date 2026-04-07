@@ -30,15 +30,7 @@ internal class Startup
         }
 
         var config = new ConfigurationBuilder()
-            .AddConfiguration(configuration)
-            .AddAzureTableStorage(options =>
-            {
-                options.ConfigurationNameIncludesVersionNumber = true;
-                options.ConfigurationKeys = configuration["ConfigNames"]!.Split(",");
-                options.EnvironmentName = _environmentName;
-                options.PreFixConfigurationKeys = false;
-                options.StorageConnectionString = configuration["ConfigurationStorageConnectionString"];
-            });
+            .AddConfiguration(configuration);
 
 #if DEBUG
         config.AddJsonFile("appsettings.Development.json", true);
