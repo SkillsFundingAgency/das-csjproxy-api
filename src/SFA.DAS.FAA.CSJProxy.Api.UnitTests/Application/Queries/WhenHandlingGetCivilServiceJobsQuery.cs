@@ -28,7 +28,11 @@ internal class WhenHandlingGetCivilServiceJobsQuery
         {
             job.Country = new Country
             {
-                En = countryName
+                En = countryName,
+            };
+            job.Approach = new Approach
+            {
+                En = "Stuff"
             };
         }
         var apiResponse = new ApiResponse<GetCivilServiceJobsApiResponse>(response, HttpStatusCode.OK, string.Empty);
@@ -41,6 +45,38 @@ internal class WhenHandlingGetCivilServiceJobsQuery
 
         // assert
         result.Should().BeEquivalentTo(response, opt => opt.ExcludingMissingMembers());
+    }
+    
+    [Test, MoqAutoData]
+    public async Task Then_The_Request_Is_Handled_Correctly_And_No_Internal_Adverts_Added(string countryName,
+        GetCivilServiceJobsQuery query,
+        GetCivilServiceJobsApiResponse response,
+        [Frozen] Mock<ICivilServiceApiService> apiClient,
+        [Frozen] ILogger<GetCivilServiceJobsQueryHandler> logger,
+        [Greedy] GetCivilServiceJobsQueryHandler handler,
+        CancellationToken token)
+    {
+        foreach (var job in response.Jobs)
+        {
+            job.Country = new Country
+            {
+                En = "ENGLAND",
+            };
+            job.Approach = new Approach
+            {
+                En = "Internal"
+            };
+        }
+        var apiResponse = new ApiResponse<GetCivilServiceJobsApiResponse>(response, HttpStatusCode.OK, string.Empty);
+        apiClient
+            .Setup(x => x.GetCivilServiceApiResponse<GetCivilServiceJobsApiResponse>(It.IsAny<GetCivilServiceJobsApiRequest>(), token))!
+            .ReturnsAsync(apiResponse);
+
+        // act
+        var result = await handler.Handle(query, token);
+
+        // assert
+        result.Jobs.Should().BeEmpty();
     }
 
     [Test]
